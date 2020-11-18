@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'tracker' %}">Tracker</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Expense</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+         <form action="{% url 'expense-edit' expense.id %}" method='post'>
+            {% include 'partials/_messages.html' %}
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="">Amount</label>
+                    <input type="number" class="form-control form-control-sm" name='amount' value='{{values.amount}}'/>
+                </div>
+                <div class="form-group">
+                    <label for="">Description</label>
+                    <input type="text" class="form-control form-control-sm" name='description' value='{{values.description}}'/>
+                </div>
+                <div class="form-group">
+                    <label for="">Category</label>
+                    <select class='form-control' name="category">
+                        <option selected value="{{values.category}}" name='category'>{{values.category}}</option>
+                        {% for category in categories %}
+                            <option value="{{category.name}}" name='category'>{{category.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Date of expense</label>
+                    <input type="date" value="{{values.date |date:'Y-m-d'}}" class="form-control form-control-sm" name='expense_date'/>
+                </div>
+                <input type="submit" value='Save' class='btn btn-primary btn-primary-sm'/>
+            </div>
+        </form>
+    </div>
+ 
+</div>
+
+{% endblock %}
+
+{% comment %} 25:57 vid 17 {% endcomment %}

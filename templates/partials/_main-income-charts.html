@@ -1,0 +1,155 @@
+<div class="row mt-5">
+<div class="col-md-6">
+<div class="card">
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted"></h6>
+<canvas id="myChart" width="50" height="50"></canvas>
+  </div>
+</div>
+<script>
+
+const showChart=(data)=>{
+const [values,labels] = [Object.values(data.sources_data).map(item=>item.amount),Object.keys(data.sources_data)]
+var ctx = document.getElementById('myChart').getContext('2d');
+
+
+
+
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Expense Categories",
+          backgroundColor:   [
+                'rgb(80,151,215)',
+                '#18bc9c',
+                'rgb(231,109, 132)',
+                'rgba(153, 102, 255, 1)',
+                 '#18bc9c'
+            ],
+          data: values
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Distribution per source (Last 3 months)',
+        fontColor: '#ffffff',
+      }
+    }
+});
+}
+
+const getSourcesData=()=>{
+fetch('/income/three_months_summary').then(res=>res.json()).
+then(data=>
+{
+  showChart(data);
+}
+)
+}
+
+
+const getCumulativeIncome=()=>{
+fetch('/income/last_3months_income_source_stats').then(res=>res.json()).
+then(data=>
+{
+  showCMChart(data);
+}
+)
+}
+
+window.addEventListener('load',getSourcesData);
+window.addEventListener('load',getCumulativeIncome)
+</script>
+
+</div><div class="col-md-6">
+
+<div class="card">
+  <div class="card-body">
+<canvas id="cmchart" width="50" height="50"></canvas>
+  </div>
+	<script>
+
+
+const showCMChart=(data)=>{
+
+let labels=[]
+const monthsdata=[]
+let keys=null;
+
+for(let i=0;i<data.cumulative_income_data.length;i++){
+  const element=data.cumulative_income_data[i]
+  labels.push(Object.keys(element)[0])
+  const vals=Object.values(element)[0]
+  keys=Object.keys(vals)
+  monthsdata.push(Object.values(vals))
+}
+
+const getMonthRep=(dateObj)=>{
+  const strDate=new Date(dateObj).toDateString()
+  const splitted= strDate.split(' ')
+  const values=[splitted[1]+" "+splitted[3]]
+  return values
+}
+
+var monthCumulative = document.getElementById("cmchart");
+var dataFirst = {
+    label: getMonthRep(labels[0]),
+    data: monthsdata[0],
+    lineTension: 0,
+    fill: false,
+    borderColor: 'rgb(80,151,215)'
+  };
+
+var dataSecond = {
+    label: getMonthRep(labels[1]),
+    data: monthsdata[1],
+    lineTension: 0,
+    fill: false,
+  borderColor:  'rgb(231,109, 132)',
+  };
+
+  var thirdSecond = {
+    label: getMonthRep(labels[2]),
+    data: monthsdata[2],
+    lineTension: 0,
+    fill: false,
+  borderColor:  '#18bc9c ',
+  };
+var monthsData = {
+  labels: keys,
+  datasets: [dataFirst, dataSecond,thirdSecond]
+};
+
+var chartOptions = {
+      title: {
+        display: true,
+        text: 'Source Cumulative Comparison (Last 3 months)',
+        fontColor: '#ffffff',
+      }
+    ,
+  legend: {
+    display: true,
+    position: 'top',
+    labels: {
+      boxWidth: 10,
+      fontColor: '#ffffff',
+    }
+  }
+};
+
+var lineChart = new Chart(monthCumulative, {
+  type: 'line',
+  data: monthsData,
+  options: chartOptions
+});
+}
+
+	</script>
+</div>
+
+</div>

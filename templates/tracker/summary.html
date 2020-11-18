@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %} | Expense Summary {% endblock %}
+{% load static %}
+{% block content %}
+{% load humanize %}
+<!-- Alerts -->
+
+<section id="dashboard" class="py-4">
+  <div class="container">
+<div class="row">
+<div class="col-md-12">
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'tracker' %}">All Expenses</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Summary</li>
+  </ol>
+</nav>
+</div>
+</div>
+<div class="row">
+<div class="col-md-3">
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+  <div class="card-header">TODAY <h5 class="float-right"><span class="badge  badge-light ">{{today.count}}</span></h5> </div>
+  <div class="card-body">
+    <i class="fa fa-money-bill-alt"></i>
+    <p class="card-text">{{today.amount}} {{currency}}</p>  </div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+  <div class="card-header">THIS WEEK <h5 class="float-right"><span class="badge  badge-light ">{{this_week.count}} </span></h5> </div>
+  <div class="card-body">
+    <i class="fa fa-money-bill-alt"></i>
+    <p class="card-text">{{this_week.amount}} {{currency}}</p>  </div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+  <div class="card-header">THIS MONTH <h5 class="float-right"><span class="badge  badge-light ">{{this_month.count}}</span></h5> </div>
+  <div class="card-body">
+    <i class="fa fa-money-bill-alt"></i>
+    <p class="card-text">{{this_month.amount}} {{currency}}</p>
+  </div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+  <div class="card-header">THIS YEAR <h5 class="float-right"><span class="badge  badge-light ">{{this_year.count}}</span></h5> </div>
+  <div class="card-body">
+    <i class="fa fa-money-bill-alt"></i>
+    <p class="card-text">{{this_year.amount}} {{currency}}</p>  </div>
+</div>
+</div>
+
+</div>
+
+<div class="row">
+<div class="col-md-6">
+<div id="loading-stuff" style="">
+
+<div class="spinner-grow text-primary" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-secondary" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-success" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-danger" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-warning" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-info" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-light" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-dark" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+</div>
+<canvas id="myChart"></canvas>
+</div><div class="col-md-6">
+<canvas id="myChartOne"></canvas>
+</div>
+
+</div>
+
+</div>
+
+  </div>
+  </div>
+</section>
+<script src="{% static 'js/expensecharts.js' %}">
+
+
+</script>
+
+{%endblock%}

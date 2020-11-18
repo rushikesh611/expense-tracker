@@ -1,0 +1,66 @@
+{% load static %}
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-white sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <span data-feather="home"></span>
+              <b>Dashboard</b> <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'tracker' %}">
+              <span data-feather="dollar-sign"></span>
+              <b>Expenses</b>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'income' %}">
+              <span data-feather="briefcase"></span>
+              <b>Income</b>
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span><b>Summary</b></span>
+          <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'expenses-summary' %}">
+              <span data-feather="bar-chart-2"></span>
+              <b>Expenses</b>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'income-summary' %}">
+              <span data-feather="bar-chart"></span>
+              <b>Income</b>
+            </a>
+          </li>
+        </ul>
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span><b>Settings</b></span>
+          <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+            <span data-feather="settings"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'preferences' %}">
+              <span data-feather="sliders"></span>
+              <b>User Settings</b> 
+            </a>
+          </li>
+          {% comment %} <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="bar-chart"></span>
+              Account
+            </a>
+          </li> {% endcomment %}
+        </ul>
+      </div>
+    </nav>

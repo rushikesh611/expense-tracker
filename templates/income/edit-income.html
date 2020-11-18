@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'income' %}">Income</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Income</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+         <form action="{% url 'income-edit' income.id %}" method='post'>
+            {% include 'partials/_messages.html' %}
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="">Amount</label>
+                    <input type="number" class="form-control form-control-sm" name='amount' value='{{values.amount}}'/>
+                </div>
+                <div class="form-group">
+                    <label for="">Description</label>
+                    <input type="text" class="form-control form-control-sm" name='description' value='{{values.description}}'/>
+                </div>
+                <div class="form-group">
+                    <label for="">Source</label>
+                    <select class='form-control' name="source">
+                        <option selected value="{{values.source}}" name='source'>{{values.source}}</option>
+                        {% for source in sources %}
+                            <option value="{{source.name}}" name='source'>{{source.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Date of Income</label>
+                    <input type="date" value="{{values.date |date:'Y-m-d'}}" class="form-control form-control-sm" name='income_date'/>
+                </div>
+                <input type="submit" value='Save' class='btn btn-primary btn-primary-sm'/>
+            </div>
+        </form>
+    </div>
+ 
+</div>
+
+{% endblock %}
